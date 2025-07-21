@@ -15,11 +15,6 @@ dist/
 *.tgz
 *.tar.gz
 
-# Environment files
-appsettings.Development.json
-.env
-.env.local
-.env.production
 
 # OS generated files
 .DS_Store
