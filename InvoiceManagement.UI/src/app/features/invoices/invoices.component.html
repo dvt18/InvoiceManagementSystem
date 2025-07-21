@@ -1,0 +1,35 @@
+<div class="invoices-header">
+  <div>
+    <h1>Invoices</h1>
+    <p>Create, manage, and track your invoices.</p>
+  </div>
+  <button class="add-invoice-btn" (click)="addInvoice()">
+    <mat-icon>add</mat-icon> Add Invoice
+  </button>
+</div>
+
+<div class="invoices-cards">
+  <div class="invoice-card" *ngFor="let invoice of invoices; index as i">
+    <div class="invoice-card-header">
+      <div>
+        <h2>INV-{{ invoice.invoiceId }}</h2>
+        <span class="status-badge" [ngClass]="invoice.status.toLowerCase()">{{ invoice.status }}</span>
+      </div>
+      <div class="amount">₹{{ invoice.amount | number }}</div>
+    </div>
+    <div class="invoice-card-info">
+      <div><span class="icon">👤</span> {{ invoice.clientName }}</div>
+      <div><span class="icon">📁</span> {{ invoice.projectName }}</div>
+      <div><span class="icon">📅</span> {{ invoice.invoiceDate | date:'mediumDate' }}</div>
+      <div><span class="icon">⏰</span> Due: {{ invoice.dueDate | date:'mediumDate' }}</div>
+    </div>
+    <div class="invoice-card-stats">
+      <div>Paid: <b>₹{{ invoice.totalPaid | number }}</b></div>
+      <div>Balance: <b>₹{{ invoice.balanceDue | number }}</b></div>
+    </div>
+    <div class="invoice-card-actions">
+      <button class="view-btn" (click)="view(invoice)">View</button>
+      <button class="delete-btn" (click)="delete(invoice)">Delete</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,328 @@
+.add-payment-dialog {
+  .mat-dialog-container {
+    padding: 0 !important;
+    max-height: 90vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    width: 500px;
+    max-width: 90vw;
+  }
+}
+
+// Dialog header styling
+h2[mat-dialog-title] {
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  color: white;
+  padding: 25px 30px;
+  margin: -24px -24px 24px -24px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  border-radius: 12px 12px 0 0;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #3498db;
+    border-radius: 2px;
+  }
+}
+
+// Form container
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 30px;
+  background: #f8f9fa;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+// Form field styling
+.full-width {
+  width: 100%;
+  
+  mat-form-field {
+    width: 100%;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid #3498db;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+    
+    &.mat-focused {
+      border-left-color: #2c3e50;
+      box-shadow: 0 4px 16px rgba(52, 152, 219, 0.2);
+    }
+  }
+}
+
+// Actions styling
+.actions {
+  background: #ecf0f1;
+  padding: 20px 30px;
+  margin: 0 -30px -30px -30px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  border-top: 1px solid #bdc3c7;
+  border-radius: 0 0 12px 12px;
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  
+  button {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    min-width: 120px;
+    font-size: 13px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    
+    &[mat-button] {
+      background: #95a5a6;
+      color: white;
+      
+      &:hover {
+        background: #7f8c8d;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(127, 140, 141, 0.3);
+      }
+    }
+    
+    &[mat-raised-button] {
+      background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+      color: white;
+      
+      &:hover {
+        box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        transform: translateY(-1px);
+      }
+      
+      &:disabled {
+        background: #bdc3c7;
+        color: #7f8c8d;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+// Success/Error messages
+.success-message {
+  color: #27ae60;
+  background: #eafaf1;
+  border: 1px solid #b7e4c7;
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.error-message {
+  color: #e74c3c;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+// Angular Material overrides
+::ng-deep {
+  .add-payment-dialog {
+    .mat-dialog-container {
+      padding: 0 !important;
+      max-height: 90vh !important;
+      overflow: hidden !important;
+    }
+  }
+  
+  .mat-form-field-appearance-fill {
+    .mat-form-field-flex {
+      background-color: white;
+      border: 2px solid #e9ecef;
+      border-radius: 6px;
+      height: 56px;
+      
+      &:hover {
+        border-color: #3498db;
+      }
+    }
+    
+    &.mat-focused .mat-form-field-flex {
+      border-color: #3498db;
+      box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    }
+    
+    .mat-form-field-label {
+      color: #6c757d;
+      font-weight: 500;
+      font-size: 14px;
+    }
+    
+    .mat-form-field-infix {
+      padding: 12px 0;
+      border-top: none;
+    }
+    
+    .mat-form-field-wrapper {
+      padding-bottom: 0;
+    }
+    
+    &.mat-form-field-invalid .mat-form-field-flex {
+      border-color: #dc3545;
+    }
+  }
+  
+  .mat-select-panel {
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .mat-datepicker-popup {
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  }
+  
+  .mat-datepicker-toggle {
+    color: #3498db;
+  }
+  
+  .mat-select-arrow {
+    color: #3498db;
+  }
+  
+  .mat-input-element {
+    color: #2c3e50;
+    font-weight: 500;
+  }
+  
+  .mat-option {
+    font-size: 14px;
+    
+    &:hover {
+      background: #e3f2fd;
+    }
+    
+    &.mat-selected {
+      background: #3498db;
+      color: white;
+    }
+  }
+}
+
+// Form field animations
+.full-width mat-form-field {
+  animation: slideInUp 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .add-payment-dialog .mat-dialog-container {
+    width: 95vw;
+    max-width: 95vw;
+  }
+  
+  form {
+    padding: 20px;
+  }
+  
+  h2[mat-dialog-title] {
+    padding: 20px;
+    font-size: 20px;
+    margin: -24px -24px 20px -24px;
+  }
+  
+  .actions {
+    padding: 15px 20px;
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+      min-width: auto;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  form {
+    gap: 16px;
+    padding: 16px;
+  }
+  
+  .full-width mat-form-field {
+    .mat-form-field-flex {
+      height: 50px;
+    }
+  }
+  
+  .actions button {
+    padding: 10px 16px;
+    height: 40px;
+  }
+}
+
+// Loading state
+.loading {
+  pointer-events: none;
+  opacity: 0.7;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #3498db;
+    border-top: 2px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}

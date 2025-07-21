@@ -1,0 +1,61 @@
+
+<div class="project-header">
+  <div>
+    <h1>Projects</h1>
+    <p>Track and manage your project portfolio.</p>
+  </div>
+  <button class="add-project-btn" (click)="openDialog()">
+    <span>+</span> Add Project
+  </button>
+</div>
+
+<!-- <div class="project-container">
+  <button mat-raised-button color="primary" class="add-project-btn" (click)="openDialog()"><mat-icon>add_circle</mat-icon>Add Project</button>
+</div> -->
+
+<div *ngIf="successMessage" class="success-message">
+  {{ successMessage}}
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage}}
+</div>
+
+<div class="project-table-container">
+  <table mat-table [dataSource]="projects" class="mat-elevation-z8">
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let project"> {{ project.name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="startDate">
+      <th mat-header-cell *matHeaderCellDef> Start Date </th>
+      <td mat-cell *matCellDef="let project"> {{ project.startDate | date:'mediumDate' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="endDate">
+      <th mat-header-cell *matHeaderCellDef> End Date </th>
+      <td mat-cell *matCellDef="let project"> {{ project.endDate | date:'mediumDate' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="clientName">
+      <th mat-header-cell *matHeaderCellDef> Client Name </th>
+      <td mat-cell *matCellDef="let project"> {{ project.clientName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="actions-header"> Actions </th>
+      <td mat-cell *matCellDef="let project" class="actions-cell">
+        <button mat-icon-button color="accent" class="action-btn edit" (click)="openDialog(project)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" class="action-btn delete" (click)="deleteProject(project.projectId)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="['name', 'startDate', 'endDate', 'clientName', 'actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['name', 'startDate', 'endDate', 'clientName', 'actions']"></tr>
+  </table>
+</div>

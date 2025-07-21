@@ -1,0 +1,33 @@
+<h2 mat-dialog-title>Add Payment</h2>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Amount Paid</mat-label>
+    <input matInput formControlName="amountPaid" type="number"/>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Method</mat-label>
+    <mat-select formControlName="method">
+      <mat-option *ngFor="let m of methods" [value]="m">{{ m }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Payment Date</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="paymentDate" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Invoice</mat-label>
+    <mat-select formControlName="invoiceId">
+      <mat-option *ngFor="let inv of invoices" [value]="inv.invoiceId">Invoice #{{ inv.invoiceId }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Save</button>
+  </div>
+</form>

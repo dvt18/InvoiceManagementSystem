@@ -1,0 +1,11 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light px-4">
+  <a class="navbar-brand fw-bold mx-auto text-center w-100">{{ pageTitle }}</a>
+
+  <div class="ms-auto d-flex align-items-center">
+    <span class="me-3 fw-semibold">
+      Welcome, {{ (username[0] | uppercase) + username.slice(1) }}
+    </span>
+    <button class="btn btn-outline-danger btn-sm" (click)="logout()">Logout</button>
+  </div>
+</nav>

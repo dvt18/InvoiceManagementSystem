@@ -1,0 +1,114 @@
+<div class="add-invoice-dialog" *ngIf="invoiceForm">
+  <div class="invoice-header">
+    <h2>Create Invoice</h2>
+    <div class="invoice-number">New Invoice</div>
+  </div>
+
+  <div class="invoice-form" [formGroup]="invoiceForm">
+    <!-- Project Section -->
+    <div class="form-section">
+      <div class="section-title">Project Information</div>
+      
+      <div class="form-row three-col">
+        <div class="form-field">
+          <mat-form-field appearance="fill">
+            <mat-label>Project</mat-label>
+            <mat-select formControlName="projectId" required (selectionChange)="onProjectChange($event)">
+              <mat-option *ngFor="let project of projects" [value]="project.projectId">
+                {{ project.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        
+        <div class="form-field readonly">
+          <label class="field-label">Client Name</label>
+          <div class="field-value">{{ invoiceForm.get('clientName')?.value || 'Select project first' }}</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-field readonly">
+          <label class="field-label">Client Email</label>
+          <div class="field-value">{{ invoiceForm.get('clientEmail')?.value || 'N/A' }}</div>
+        </div>
+        
+        <div class="form-field readonly">
+          <label class="field-label">Client Type</label>
+          <div class="field-value">{{ invoiceForm.get('clientType')?.value || 'N/A' }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invoice Details Section -->
+    <div class="form-section">
+      <div class="section-title">Invoice Details</div>
+      
+      <div class="form-row three-col">
+        <div class="form-field readonly">
+          <label class="field-label">Invoice Date</label>
+          <div class="field-value">{{ invoiceForm.get('invoiceDate')?.value | date:'mediumDate' }}</div>
+        </div>
+        
+        <div class="form-field">
+          <mat-form-field appearance="fill">
+            <mat-label>Due Date</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="dueDate" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      
+      <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Amount</mat-label>
+          <input matInput type="number" formControlName="amount" required placeholder="0.00" (input)="calculateTotals()">
+          <span matPrefix>&nbsp;₹&nbsp;</span>
+        </mat-form-field>
+      </div>
+        
+      <div class="form-field">
+        <mat-form-field appearance="fill">
+          <mat-label>Tax (%)</mat-label>
+          <input matInput type="number" formControlName="taxPercent" required placeholder="0" min="0" max="100" (input)="calculateTotals()">
+          <span matSuffix>%&nbsp;</span>
+        </mat-form-field>
+      </div>
+        
+      <div class="form-field readonly status-field">
+        <label class="field-label">Status</label>
+        <div class="status-display">
+          <mat-icon>schedule</mat-icon>
+          Pending
+        </div>
+      </div>
+    </div>
+
+    <!-- Invoice Summary -->
+    <div class="invoice-summary">
+      <div class="summary-title">Invoice Summary</div>
+      <div class="summary-row">
+        <span>Subtotal:</span>
+        <span>₹ {{ (invoiceForm.get('amount')?.value || 0) | number: '1.2-2' }}</span>
+      </div>
+      <div class="summary-row">
+        <span>Tax ({{ invoiceForm.get('taxPercent')?.value || 0 }}%):</span>
+        <span>₹ {{ getTaxAmount() | number: '1.2-2' }}</span>
+      </div>
+      <div class="summary-row total">
+        <span>Total Amount:</span>
+        <span>₹ {{ getTotalAmount() | number: '1.2-2' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-actions">
+    <button mat-stroked-button type="button" class="cancel-btn" (click)="cancel()">
+      Cancel
+    </button>
+    <button mat-raised-button type="button" class="save-btn" (click)="save()" [disabled]="invoiceForm.invalid">
+      Create Invoice
+    </button>
+  </div>
+</div>

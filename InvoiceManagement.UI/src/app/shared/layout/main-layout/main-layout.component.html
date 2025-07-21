@@ -1,0 +1,11 @@
+<div class="layout-wrapper">
+  <app-sidenav [collapsed]="collapsed" (toggle)="collapsed = $event"></app-sidenav>
+
+  <div class="main-container" [class.collapsed]="collapsed">
+    <app-header></app-header>
+
+    <div class="main-content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

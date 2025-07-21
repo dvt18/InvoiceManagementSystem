@@ -1,0 +1,66 @@
+.add-client-form {
+  display: flex;
+  flex-direction: column;
+  padding: 0 16px 16px;
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 16px;
+  }
+}
+
+h2[mat-dialog-title] {
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  color: white;
+  padding: 25px 30px;
+  margin: -24px -24px 24px -24px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 1px;
+  border-radius: 12px 12px 0 0;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 3px;
+    background: #3498db;
+    border-radius: 2px;
+  }
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+:host ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.success-message {
+  color: #27ae60;
+  background: #eafaf1;
+  border: 1px solid #b7e4c7;
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.error-message {
+  color: #e74c3c;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 10px 16px;
+  margin-bottom: 12px;
+  text-align: center;
+}

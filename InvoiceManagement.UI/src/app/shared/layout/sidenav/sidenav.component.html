@@ -1,0 +1,49 @@
+<div class="sidenav" [class.collapsed]="collapsed">
+  <button class="toggle-btn" (click)="toggleSidenav()">☰</button>
+
+  <ul>
+    <li>
+      <a routerLink="/dashboard"
+        routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }">
+        <i class="fas fa-home"></i>
+        <span *ngIf="!collapsed">Dashboard</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/clients"
+        routerLinkActive="active-link">
+        <i class="fas fa-user-friends"></i>
+        <span *ngIf="!collapsed">Clients</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/projects"
+        routerLinkActive="active-link">
+        <i class="fas fa-tasks"></i>
+        <span *ngIf="!collapsed">Projects</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/invoices"
+        routerLinkActive="active-link">
+        <i class="fas fa-file-invoice"></i>
+        <span *ngIf="!collapsed">Invoices</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/payments"
+        routerLinkActive="active-link">
+        <i class="fas fa-rupee-sign"></i>
+        <span *ngIf="!collapsed">Payments</span>
+      </a>
+    </li>
+    <li *ngIf="isAdmin">
+      <a routerLink="/users"
+        routerLinkActive="active-link">
+        <i class="fas fa-users"></i>
+        <span *ngIf="!collapsed">Users</span>
+      </a>
+    </li>
+  </ul>
+</div>

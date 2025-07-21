@@ -1,0 +1,19 @@
+<div class="container mt-5">
+  <button type="back" (click)="backToLogin()">&larr;</button>
+  <h2>Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <input type="text" formControlName="username" placeholder="Username" required />
+      <input type="password" formControlName="password" placeholder="Password" required />
+      <select formControlName="role">
+        <option value="User">User</option>
+        <option value="Admin">Admin</option>
+      </select>
+      <button type="submit">Register</button>
+    </form>
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>

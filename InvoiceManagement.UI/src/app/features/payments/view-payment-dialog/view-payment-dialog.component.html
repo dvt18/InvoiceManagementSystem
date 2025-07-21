@@ -1,0 +1,86 @@
+<!-- <h2 mat-dialog-title>Payment Details</h2>
+<div mat-dialog-content>
+  <p><strong>Payment ID:</strong> {{ data.paymentId }}</p>
+  <p><strong>Amount Paid:</strong> ₹{{ data.amountPaid }}</p>
+  <p><strong>Payment Date:</strong> {{ data.paymentDate | date }}</p>
+  <p><strong>Method:</strong> {{ data.method }}</p>
+  <p><strong>Invoice ID:</strong> {{ data.invoiceId }}</p>
+  <p><strong>Project Name:</strong> {{ data.projectName }}</p>
+  <p><strong>Client Name:</strong> {{ data.clientName }}</p>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</div> -->
+
+
+<div class="payment-container">
+  <div class="payment-header">
+    <h2>Payment Details</h2>
+    <div class="payment-number">Payment #{{ data.paymentId }}</div>
+  </div>
+
+  <div class="payment-details">
+    <div class="detail-item">
+      <span class="label">Payment ID</span>
+      <span class="value">{{ data.paymentId }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Amount Paid</span>
+      <span class="value amount">₹{{ data.amountPaid | number: '1.2-2' }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Payment Date</span>
+      <span class="value">{{ data.paymentDate | date:'mediumDate' }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Payment Method</span>
+      <span class="value method">{{ data.method }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Invoice ID</span>
+      <span class="value">#{{ data.invoiceId }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Project Name</span>
+      <span class="value">{{ data.projectName }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Client Name</span>
+      <span class="value">{{ data.clientName }}</span>
+    </div>
+
+    <div class="detail-item">
+      <span class="label">Status</span>
+      <span class="value status completed">Completed</span>
+    </div>
+
+    <div class="payment-summary">
+      <div class="summary-title">Payment Summary</div>
+      <div class="summary-content">
+        <div class="summary-item">
+          <div class="summary-label">Total Amount</div>
+          <div class="summary-value">₹{{ data.amountPaid | number: '1.2-2' }}</div>
+        </div>
+        <div class="summary-item">
+          <div class="summary-label">Payment Method</div>
+          <div class="summary-value">{{ data.method }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dialog-actions">
+    <button mat-button class="close-btn" mat-dialog-close>Close</button>
+    <!-- <button mat-raised-button class="print-btn" (click)="print()">
+      <mat-icon>print</mat-icon>
+      Print
+    </button> -->
+  </div>
+</div>

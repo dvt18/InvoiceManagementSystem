@@ -1,0 +1,88 @@
+<div class="invoice-container">
+      <div class="invoice-header">
+        <h1>INVOICE</h1>
+        <div class="invoice-number">Invoice #{{ data.invoiceId }}</div>
+      </div>
+
+      <div class="invoice-details">
+        <div class="company-info">
+          <h3>Invoice Management System</h3>
+          <p>Your Company Address</p>
+          <p>City, State, ZIP</p>
+          <p>{{ data.clientAddress }}</p>
+        </div>
+
+        <div class="client-info">
+          <h4>Bill To:</h4>
+          <p><strong>{{ data.clientName }}</strong></p>
+          <p>{{ data.clientEmail }}</p>
+        </div>
+      </div>
+
+      <div class="invoice-meta">
+        <div class="meta-item">
+          <span class="label">Project:</span>
+          <span class="value">{{ data.projectName }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Invoice Date:</span>
+          <span class="value">{{ data.invoiceDate | date:'mediumDate' }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Due Date:</span>
+          <span class="value">{{ data.dueDate | date:'mediumDate' }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="label">Status:</span>
+          <span class="value status" [class]="data.status.toLowerCase()">{{ data.status }}</span>
+        </div>
+      </div>
+
+      <div class="invoice-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ data.projectName }} - Project Services</td>
+              <td>₹{{ getSubtotal() | number: '1.2-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="invoice-summary">
+        <div class="summary-row">
+          <span>Subtotal:</span>
+          <span>₹{{ getSubtotal() | number: '1.2-2' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Tax ({{ data.taxPercent || 0 }}%):</span>
+          <span>₹{{ getTaxAmount() | number: '1.2-2' }}</span>
+        </div>
+        <div class="summary-row total">
+          <span>Total:</span>
+          <span>₹{{ data.amount | number: '1.2-2' }}</span>
+        </div>
+        <div class="summary-row">
+          <span>Total Paid:</span>
+          <span>₹{{ data.totalPaid | number: '1.2-2' }}</span>
+        </div>
+        <div class="summary-row balance">
+          <span>Balance Due:</span>
+          <span>₹{{ data.balanceDue | number: '1.2-2' }}</span>
+        </div>
+      </div>
+
+      <mat-dialog-actions align="end">
+        <button mat-button (click)="close()">Close</button>
+        <button mat-raised-button color="primary" (click)="print()">
+          <mat-icon>print</mat-icon>
+          Print
+        </button>
+      </mat-dialog-actions>
+    </div>

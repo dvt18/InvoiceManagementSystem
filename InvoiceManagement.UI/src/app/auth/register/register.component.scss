@@ -1,0 +1,102 @@
+h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #2c3e50;
+}
+
+.container {
+  max-width: 400px;
+  margin: 60px auto;
+  padding: 32px 24px 24px 24px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+}
+
+form {
+  max-width: 400px;
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+// p {
+//   text-decoration: none;
+//   display: inline-block;
+//   padding: 8px 16px;
+// }
+
+// p:hover {
+//   background-color: #f1f1f1;
+//   color: rgb(0, 0, 0);
+//   outline: none;
+// }
+
+input, select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+button[type="back"] {
+  padding: 8px 16px; 
+  border: #fff;
+  background: local;
+  transition: background 0.5s;
+  cursor: pointer;
+}
+
+button[type="back"]:hover{
+  border-radius: 6px;
+  background: #d1d5db;
+}
+
+button[type="submit"] {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button[type="submit"]:hover {
+  background: #125ea2;
+}
+
+.success-message {
+  margin: 18px auto 0 auto;
+  color: #27ae60;
+  font-size: 16px;
+  text-align: center;
+  max-width: 400px;
+}
+
+.error-message {
+  margin: 18px auto 0 auto;
+  color: #e74c3c;
+  font-size: 14px;
+  text-align: center;
+  max-width: 400px;
+  background: #fdecea;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+  padding: 7px 0;
+}
+
+@media (max-width: 500px) {
+  form {
+    padding: 12px 4px;
+  }
+}

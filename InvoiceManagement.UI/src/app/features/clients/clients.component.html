@@ -1,0 +1,42 @@
+
+<div class="clients-header">
+  <div>
+    <h1>Clients</h1>
+    <p>Manage your client relationships and information.</p>
+  </div>
+  <button class="add-client-btn" (click)="openAddDialog()">
+    <mat-icon>person_add</mat-icon> Add Client
+  </button>
+</div>
+
+<div *ngIf="successMessage" class="success-message">
+  {{ successMessage }}
+</div>
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div class="clients-cards">
+  <div class="client-card" *ngFor="let client of clients">
+    <div class="client-card-header">
+      <div>
+        <h2>{{ client.name }}</h2>
+        <span class="status-badge" [ngClass]="client.status">{{ client.status }}</span>
+      </div>
+    </div>
+    <div class="client-card-info">
+      <div><span class="icon">📧</span> {{ client.email }}</div>
+      <div><span class="icon">📞</span> {{ client.phone }}</div>
+      <div><span class="icon">📍</span> {{ client.address }}</div>
+      <div><span class="icon">🏷️</span> {{ client.type }}</div>
+    </div>
+    <div class="client-card-stats">
+      <div>Total Invoices: <b>{{ client.totalInvoices }}</b></div>
+      <div>Total Amount: <b>₹{{ client.totalAmount | number }}</b></div>
+    </div>
+    <div class="client-card-actions">
+      <button class="edit-btn" (click)="openAddDialog(client)">Edit</button>
+      <button class="delete-btn" (click)="deleteClient(client.clientId)">Delete</button>
+    </div>
+  </div>
+</div>

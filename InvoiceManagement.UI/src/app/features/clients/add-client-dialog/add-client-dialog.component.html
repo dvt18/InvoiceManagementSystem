@@ -1,0 +1,49 @@
+<div class="add-client-dialog">
+  <h2 mat-dialog-title>{{ data ? 'Edit Client' : 'Add Client' }}</h2>
+
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="save()" class="add-client-form">
+    <mat-form-field appearance="fill">
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" required />
+      <mat-error *ngIf="form.get('name')?.hasError('required')">Name is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="email" required />
+      <mat-error *ngIf="form.get('email')?.hasError('required')">Email is required</mat-error>
+      <mat-error *ngIf="form.get('email')?.hasError('email')">Please enter a valid email</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone" type="tel" required />
+      <mat-error *ngIf="form.get('phone')?.hasError('required')">Phone is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Address</mat-label>
+      <input matInput formControlName="address" />
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type" required>
+        <mat-option value="Client">Client</mat-option>
+        <mat-option value="Vendor">Vendor</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('type')?.hasError('required')">Type is required</mat-error>
+    </mat-form-field>
+
+    <div class="dialog-actions">
+      <button mat-button type="button" (click)="cancel()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+        {{ data ? 'Update' : 'Save' }}
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,79 @@
+
+<div>
+    <h1 className="text-3xl font-bold">Dashboard</h1>
+    <p id="info" className="text-muted-foreground">Welcome back! Here's your business overview.</p>
+</div>
+
+<div class="summary-card">
+    <div class="card">
+        <span class="card-icon">💰</span>
+        <h3>Total Revenue</h3> 
+        <p>₹{{ totalPayment | number }}</p>
+        <p id="description"> <i class="fa-solid fa-arrow-trend-up"></i>  +20.1% from last month</p>
+    </div>
+    <div class="card">
+        <span class="card-icon">👥</span>
+        <h3>Active Clients</h3> 
+        <p>{{ clientCount }}</p>
+        <p id="description"> <i class="fa-solid fa-arrow-trend-up"></i>  +2 new clients</p>
+    </div>
+    <div class="card">
+        <span class="card-icon">🧾</span>
+        <h3>Total Invoices</h3> 
+        <p>{{ invoiceCount }}</p>
+        <p id="description"> <i class="fa-solid fa-arrow-trend-up"></i>  +5 from last month</p>
+    </div>
+    <div class="card">
+        <span class="card-icon">⏳</span>
+        <h3>Pending Payments</h3> 
+        <p class="pending">₹{{ pendingPayment | number }}</p>
+        <p id="description">  5 invoices pending</p>
+    </div>
+    <div class="card">
+        <span class="card-icon">⚠️</span>
+        <h3>Overdue Payments</h3> 
+        <p class="overdue">₹{{ overduePayment | number }}</p>
+        <p id="description">  2 invoices overdue</p>
+    </div>
+</div>
+
+
+
+<!-- Add this after your existing cards -->
+<div class="visual-charts">
+    <div class="chart-grid">
+        <div class="progress-chart">
+            <h3>Payment Collection</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 75%"></div>
+            </div>
+            <p>75% of monthly target</p>
+        </div>
+        
+        <div class="pie-chart">
+            <h3>Invoice Status</h3>
+            <div class="pie-container">
+                <div class="pie-slice paid"></div>
+                <div class="pie-slice pending"></div>
+                <div class="pie-slice overdue"></div>
+            </div>
+            <div class="pie-legend">
+                <span><span class="legend-color paid"></span> Paid (60%)</span>
+                <span><span class="legend-color pending"></span> Pending (25%)</span>
+                <span><span class="legend-color overdue"></span> Overdue (15%)</span>
+            </div>
+        </div>
+        
+        <div class="bar-chart">
+            <h3>Monthly Revenue</h3>
+            <div class="bars">
+                <div class="bar" style="height: 60%"><span>Jan</span></div>
+                <div class="bar" style="height: 80%"><span>Feb</span></div>
+                <div class="bar" style="height: 75%"><span>Mar</span></div>
+                <div class="bar" style="height: 95%"><span>Apr</span></div>
+                <div class="bar" style="height: 100%"><span>May</span></div>
+                <div class="bar" style="height: 85%"><span>Jun</span></div>
+            </div>
+        </div>
+    </div>
+</div>
