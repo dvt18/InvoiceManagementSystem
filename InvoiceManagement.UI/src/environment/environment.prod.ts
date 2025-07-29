@@ -1,5 +1,5 @@
 
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:5000/api'
+  apiUrl: 'https://invoice-api-3o9p.onrender.com/api'
 };
