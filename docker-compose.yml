@@ -1,0 +1,43 @@
+services:
+  # PostgreSQL Database
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: invoice_user
+      POSTGRES_PASSWORD: invoice_password
+      POSTGRES_DB: invoice_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  # .NET API Backend
+  api:
+    build:
+      context: .
+      dockerfile: api.Dockerfile
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Database=invoice_db;Username=invoice_user;Password=invoice_password;Port=5432
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:5000
+      - CORS_ORIGINS=http://localhost:4200
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    restart: on-failure
+    volumes:
+    - ~/.nuget/packages:/root/.nuget/packages
+
+  # Angular Frontend
+  ui:
+    build:
+      context: .
+      dockerfile: ui.Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - api
+
+volumes:
+  db_data: 

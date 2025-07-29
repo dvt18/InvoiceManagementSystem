@@ -7,23 +7,21 @@ using InvoiceSystem.API.Services;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add CORS service
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowFrontend", policy =>
+    options.AddPolicy("AllowAll", builder =>
     {
-        policy.WithOrigins("http://localhost:4200") // Angular dev server
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
     });
 });
 
-
 builder.Services.AddDbContext<InvoiceDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -33,36 +31,10 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Your API", Version = "v1" });
-
-    c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
-    {
-        Name = "Authorization",
-        Type = SecuritySchemeType.Http,
-        Scheme = "Bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Enter 'Bearer' [space] and then your valid token in the text input below.\r\n\r\nExample: \"Bearer eyJhbGciOiJIUzI1NiIs...\"",
-    });
-
-    c.AddSecurityRequirement(new OpenApiSecurityRequirement
-    {
-        {
-            new OpenApiSecurityScheme
-            {
-                Reference = new OpenApiReference
-                {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
-                }
-            },
-            new string[] {}
-        }
-    });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Invoice API", Version = "v1" });
 });
 
-
-//JWT Setup
+// JWT Setup
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 builder.Services.AddAuthentication(options =>
 {
@@ -89,18 +61,34 @@ builder.Services.AddScoped<JwtService>();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+
+// Apply migrations automatically
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var dbContext = scope.ServiceProvider.GetRequiredService<InvoiceDbContext>();
+    try
+    {
+        dbContext.Database.Migrate();
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Migration failed: {ex.Message}");
+    }
 }
 
-app.UseHttpsRedirection();
-app.UseCors("AllowFrontend");
+// Add basic endpoints
+app.MapGet("/", () => "API is running!");
+app.MapGet("/health", () => "Healthy");
+
+// Enable Swagger
+app.UseSwagger();
+app.UseSwaggerUI();
+
+// CORS before everything else
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

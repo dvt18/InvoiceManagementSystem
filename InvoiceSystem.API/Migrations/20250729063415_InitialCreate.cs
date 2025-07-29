@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -15,13 +16,13 @@ namespace InvoiceSystem.API.Migrations
                 name: "Clients",
                 columns: table => new
                 {
-                    ClientId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Type = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    Phone = table.Column<string>(type: "text", nullable: false),
+                    Address = table.Column<string>(type: "text", nullable: true),
+                    Type = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,11 +33,11 @@ namespace InvoiceSystem.API.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Role = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    UserId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Username = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    Role = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -47,12 +48,12 @@ namespace InvoiceSystem.API.Migrations
                 name: "Projects",
                 columns: table => new
                 {
-                    ProjectId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ClientId = table.Column<int>(type: "int", nullable: false)
+                    ProjectId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ClientId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -69,13 +70,14 @@ namespace InvoiceSystem.API.Migrations
                 name: "Invoices",
                 columns: table => new
                 {
-                    InvoiceId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    InvoiceDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    DueDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProjectId = table.Column<int>(type: "int", nullable: false)
+                    InvoiceId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    InvoiceDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DueDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Status = table.Column<string>(type: "text", nullable: false),
+                    TaxPercent = table.Column<decimal>(type: "numeric", nullable: false),
+                    ProjectId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,12 +94,12 @@ namespace InvoiceSystem.API.Migrations
                 name: "Payments",
                 columns: table => new
                 {
-                    PaymentId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    AmountPaid = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    PaymentDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Method = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    InvoiceId = table.Column<int>(type: "int", nullable: false)
+                    PaymentId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    AmountPaid = table.Column<decimal>(type: "numeric", nullable: false),
+                    PaymentDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Method = table.Column<string>(type: "text", nullable: false),
+                    InvoiceId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -124,13 +126,6 @@ namespace InvoiceSystem.API.Migrations
                 name: "IX_Projects_ClientId",
                 table: "Projects",
                 column: "ClientId");
-
-            // Reset identity seeds for all tables to start from 1
-            migrationBuilder.Sql("DBCC CHECKIDENT ('Clients', RESEED, 0);");
-            migrationBuilder.Sql("DBCC CHECKIDENT ('Users', RESEED, 0);");
-            migrationBuilder.Sql("DBCC CHECKIDENT ('Projects', RESEED, 0);");
-            migrationBuilder.Sql("DBCC CHECKIDENT ('Invoices', RESEED, 0);");
-            migrationBuilder.Sql("DBCC CHECKIDENT ('Payments', RESEED, 0);");
         }
 
         /// <inheritdoc />
