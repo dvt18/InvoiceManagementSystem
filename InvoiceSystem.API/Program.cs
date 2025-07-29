@@ -67,15 +67,21 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<InvoiceDbContext>();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    
     try
     {
-        Console.WriteLine("Applying migrations...");
-        dbContext.Database.Migrate();
-        Console.WriteLine("Migrations applied successfully");
+        logger.LogInformation("Checking database connection...");
+        await dbContext.Database.CanConnectAsync();
+        logger.LogInformation("Database connection successful");
+        
+        logger.LogInformation("Applying migrations...");
+        await dbContext.Database.MigrateAsync();
+        logger.LogInformation("Migrations applied successfully");
     }
     catch (Exception ex)
     {
-        Console.WriteLine($"Migration failed: {ex.Message}");
+        logger.LogError(ex, "Database setup failed: {Message}", ex.Message);
         throw;
     }
 }
