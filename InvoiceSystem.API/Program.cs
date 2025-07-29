@@ -16,7 +16,8 @@ builder.Services.AddCors(options =>
     {
         builder.WithOrigins("https://invoicemanagementsystem-ui.onrender.com")
                .AllowAnyMethod()
-               .AllowAnyHeader();
+               .AllowAnyHeader()
+               .AllowCredentials();
     });
 });
 
@@ -68,11 +69,14 @@ using (var scope = app.Services.CreateScope())
     var dbContext = scope.ServiceProvider.GetRequiredService<InvoiceDbContext>();
     try
     {
+        Console.WriteLine("Applying migrations...");
         dbContext.Database.Migrate();
+        Console.WriteLine("Migrations applied successfully");
     }
     catch (Exception ex)
     {
         Console.WriteLine($"Migration failed: {ex.Message}");
+        throw;
     }
 }
 
