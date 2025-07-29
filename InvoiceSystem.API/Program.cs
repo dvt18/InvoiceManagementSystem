@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder =>
     {
-        builder.AllowAnyOrigin()
+        builder.WithOrigins("https://invoicemanagementsystem-ui.onrender.com")
                .AllowAnyMethod()
                .AllowAnyHeader();
     });

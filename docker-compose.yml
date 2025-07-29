@@ -20,7 +20,7 @@ services:
       - ConnectionStrings__DefaultConnection=postgresql://invoice_user:6rO2vTV2GJtELIjHHQXPXant0kXAVqnS@dpg-d249lb1r0fns73av6n00-a/invoice_db_cfaa
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:5000
-      - CORS_ORIGINS=http://localhost:4200
+      - CORS_ORIGINS=https://invoicemanagementsystem-ui.onrender.com
     ports:
       - "5000:5000"
     depends_on:
